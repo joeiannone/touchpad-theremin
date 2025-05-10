@@ -14,7 +14,8 @@
       "productName": "TouchPad Theremin",
       "files": [
         "main.js",
-        "src/**/*"
+        "src/**/*",
+        "LICENSE"
       ],
       "directories": {
         "buildResources": "assets"
