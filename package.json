@@ -3,6 +3,8 @@
     "version": "1.0.0",
     "description": "Sine wave audio pad with frequency and volume controls",
     "main": "main.js",
+    "author": "Joseph Iannone <josiannone@outlook.com>",
+    "license": "GNU AGPLv3",
     "scripts": {
       "start": "electron .",
       "dist": "electron-builder"
