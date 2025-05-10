@@ -1,0 +1,38 @@
+{
+    "name": "touchpad-theremin",
+    "version": "1.0.0",
+    "description": "Sine wave audio pad with frequency and volume controls",
+    "main": "main.js",
+    "scripts": {
+      "start": "electron .",
+      "dist": "electron-builder"
+    },
+    "build": {
+      "appId": "josiannone.touchpadtheremin",
+      "productName": "TouchPad Theremin",
+      "files": [
+        "main.js",
+        "src/**/*"
+      ],
+      "directories": {
+        "buildResources": "assets"
+      },
+      "extraMetadata": {
+        "main": "main.js"
+      },
+      "win": {
+        "target": "nsis"
+      },
+      "mac": {
+        "target": "dmg"
+      },
+      "linux": {
+        "target": "AppImage"
+      }
+    },
+    "devDependencies": {
+      "electron": "^29.0.0",
+      "electron-builder": "^24.0.0"
+    }
+  }
+  
