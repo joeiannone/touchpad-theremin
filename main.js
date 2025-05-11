@@ -2,12 +2,15 @@ const { app, BrowserWindow, Menu, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
+
 let win;
 
 function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+    minWidth: 300,
+    minHeight: 375,
     webPreferences: {
       preload: path.join(__dirname, 'src', 'renderer.js'),
       contextIsolation: true,
@@ -51,7 +54,7 @@ function createWindow() {
           enabled: false,
         }
       ],
-    },
+    }
   ]);
 
   // Set the app menu
