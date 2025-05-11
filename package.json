@@ -1,6 +1,6 @@
 {
     "name": "touchpad-theremin",
-    "version": "1.0.0",
+    "version": "1.2.1",
     "description": "Sine wave audio pad with frequency and volume controls",
     "main": "main.js",
     "author": "Joseph Iannone <josiannone@outlook.com>",
