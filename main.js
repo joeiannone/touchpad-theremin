@@ -1,4 +1,13 @@
-const { app, BrowserWindow, Menu, dialog } = require('electron');
+/*
+ * Filename: main.js
+ * Created Date: Saturday, May 10th 2025, 11:08:45 am
+ * Author: Joseph Iannone
+ * 
+ * Copyright (c) 2025 iannonejoseph
+ */
+
+
+const { app, BrowserWindow, Menu, dialog, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -10,12 +19,19 @@ function createWindow() {
     width: 800,
     height: 600,
     minWidth: 300,
-    minHeight: 375,
+    minHeight: 480,
     webPreferences: {
-      preload: path.join(__dirname, 'src', 'renderer.js'),
+      preload: path.join(__dirname, 'src', 'preload.js'),
       contextIsolation: true,
+      nodeIntegration: false,
+      enableBlinkFeatures: 'Midi'
     },
   });
+
+  // ✅ Open DevTools if `--dev` flag is present
+  if (process.argv.includes('--dev')) {
+    win.webContents.openDevTools();
+  }
 
   win.loadFile(path.join(__dirname, 'src', 'index.html'));
 
@@ -96,6 +112,9 @@ function showAboutDialog() {
 }
 
 app.whenReady().then(() => {
+
+
+
   createWindow();
 
   // For macOS, it's common to add a default application menu with app name

@@ -26,6 +26,16 @@ h1 {
   font-size: 1.2em;
 }
 
+#midi-instructions {
+  font-size: .9em;
+  color: #4f4f4f;
+}
+
+#midi-instructions ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
 
 #app-version {
@@ -36,6 +46,16 @@ h1 {
   color: #888;
   /* font-family: Arial, sans-serif;  */
 }
+
+#midi-device-info {
+  position: fixed;
+  bottom: 2px;
+  left: 5px;
+  font-size: 14px;
+  /* font-family: Arial, sans-serif;  */
+}
+
+
 
 
 #pad {
