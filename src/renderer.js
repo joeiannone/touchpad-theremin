@@ -5,6 +5,8 @@
  * 
  * Copyright (c) 2025 iannonejoseph
  */
+import './web-polyfill.js';
+
 const MIN_FREQ = 100;
 const MAX_FREQ = 2000;
 const ERROR_COLOR_HEX = "#e57373";
@@ -27,16 +29,17 @@ let frequency = 0;
 let volume = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
+  
 
   reset();
 
-  window.appAPI.onVersion((version) => {
+  window.appAPI?.onVersion((version) => {
     const versionElement = document.getElementById('app-version');
     versionElement.textContent = `Version: ${version}`;
   });
 
 
-  window.electron.requestMidiAccess().then((midiData) => {
+  window.electron?.requestMidiAccess().then((midiData) => {
     if (midiData.error) {
       console.error('MIDI Error:', midiData.error);
       midiDeviceMessage.textContent = $`MIDI Device Error: ${midiData.error}`;
@@ -60,41 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
     midiDeviceMessage.style.color = ERROR_COLOR_HEX;
     stopOscillator();
   });
+  
 
 
-  window.electron.listenToMidiInputs((msg) => {
-    // console.log('MIDI Message Received:', msg);
-    const [status, data1, data2] = msg.data;
 
-    // console.log('Status Byte:', status);
-    // console.log('Data Byte 1:', data1);
-    // console.log('Data Byte 2:', data2);
-
-    // // Example: use note number (data1) or velocity (data2)
-    // if ((status & 0xf0) === 0x90 && data2 > 0) {
-    //   console.log('Note ON:', data1, 'Velocity:', data2);
-    // } else if ((status & 0xf0) === 0x80 || ((status & 0xf0) === 0x90 && data2 === 0)) {
-    //   console.log('Note OFF:', data1);
-    // }
-
-
-    if (status === 176) {
-
-      if (data1 === 1) {
-        frequency = mapRange(data2, 0, 127, 100, 2000);
-      }
-        
-      else if (data1 === 2) {
-        volume = mapRange(data2, 0, 127, 0, 1);
-      }
-        
-
-      if (oscillator)
-        handleMIDIMove(frequency, volume);
-      else
-        handleMIDIStart(frequency, volume);
-    }
+  window.electron?.listenToMidiInputs((msg) => {
+    handleMIDIMessage(msg);
   });
+  
+  
 
 
 
@@ -186,6 +163,47 @@ function reset() {
   volume = .2;
 }
 
+/**
+ * 
+ * @param {*} msg 
+ */
+function handleMIDIMessage(msg) {
+  // console.log('MIDI Message Received:', msg);
+  const [status, data1, data2] = msg.data;
+
+  // console.log('Status Byte:', status);
+  // console.log('Data Byte 1:', data1);
+  // console.log('Data Byte 2:', data2);
+
+  // // Example: use note number (data1) or velocity (data2)
+  // if ((status & 0xf0) === 0x90 && data2 > 0) {
+  //   console.log('Note ON:', data1, 'Velocity:', data2);
+  // } else if ((status & 0xf0) === 0x80 || ((status & 0xf0) === 0x90 && data2 === 0)) {
+  //   console.log('Note OFF:', data1);
+  // }
+
+
+  if (status === 176 && (data1 === 1 || data1 === 2)) {
+
+    if (data1 === 1) {
+      frequency = mapRange(data2, 0, 127, MIN_FREQ, MAX_FREQ);
+    }
+      
+    else if (data1 === 2) {
+      volume = mapRange(data2, 0, 127, 0, 1);
+    }
+
+    if (oscillator) {
+      console.log("OSCILLATOR EXISTS", oscillator);
+      handleMIDIMove(frequency, volume);
+    }
+    else {
+      console.log("OSCILLATOR DOES NOT EXIST", oscillator);
+      handleMIDIStart(frequency, volume);
+    }
+  }
+}
+
 
 /**
  * 
@@ -244,6 +262,7 @@ function getVolumeFromY(y, height) {
     const percent = 1 - y / height;
     return Math.max(0, Math.min(1, percent));
 }
+
 
 
 /**

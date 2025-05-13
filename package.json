@@ -1,42 +1,45 @@
 {
     "name": "touchpad-theremin",
-    "version": "2.0.1",
+    "version": "2.1.1",
     "description": "Sine wave audio pad with frequency and volume controls",
     "main": "main.js",
     "author": "Joseph Iannone <josiannone@outlook.com>",
     "license": "GNU AGPLv3",
     "scripts": {
-      "start": "electron .",
-      "dev": "electron . --dev",
-      "dist": "electron-builder"
+        "start": "electron .",
+        "dev": "electron . --dev",
+        "dist": "electron-builder",
+        "web:dev": "vite",
+        "web:build": "vite build",
+        "web:preview": "vite preview"
     },
     "build": {
-      "appId": "josiannone.touchpadtheremin",
-      "productName": "TouchPad Theremin",
-      "files": [
-        "main.js",
-        "src/**/*",
-        "LICENSE"
-      ],
-      "directories": {
-        "buildResources": "assets"
-      },
-      "extraMetadata": {
-        "main": "main.js"
-      },
-      "win": {
-        "target": "nsis"
-      },
-      "mac": {
-        "target": "dmg"
-      },
-      "linux": {
-        "target": "AppImage"
-      }
+        "appId": "josiannone.touchpadtheremin",
+        "productName": "TouchPad Theremin",
+        "files": [
+            "main.js",
+            "src/**/*",
+            "LICENSE"
+        ],
+        "directories": {
+            "buildResources": "assets"
+        },
+        "extraMetadata": {
+            "main": "main.js"
+        },
+        "win": {
+            "target": "nsis"
+        },
+        "mac": {
+            "target": "dmg"
+        },
+        "linux": {
+            "target": "AppImage"
+        }
     },
     "devDependencies": {
-      "electron": "^29.0.0",
-      "electron-builder": "^24.0.0"
+        "electron": "^29.0.0",
+        "electron-builder": "^24.0.0",
+        "vite": "^6.3.5"
     }
-  }
-  
+}

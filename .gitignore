@@ -8,6 +8,7 @@ node_modules/
 /*.exe
 /*.AppImage
 /*.tar.xz
+/webdist/
 
 # Debug and log files
 *.log
