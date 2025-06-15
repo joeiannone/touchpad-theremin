@@ -20,12 +20,13 @@ function createWindow() {
     height: 600,
     minWidth: 300,
     minHeight: 480,
+    icon: path.join(__dirname, 'assets/icons/win/icon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'src', 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
       enableBlinkFeatures: 'Midi'
-    },
+    }
   });
 
   // ✅ Open DevTools if `--dev` flag is present
